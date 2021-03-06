@@ -16,5 +16,6 @@ val dockerImages = arrayListOf(libericaOpenJdkDockerImage,
     artifactsManagementPluginDockerImage)
 
 object AsavSyncerProject : Project({
+    name = "AsavSyncerProject"
 //    buildType(BuildArtifacts)
 })
