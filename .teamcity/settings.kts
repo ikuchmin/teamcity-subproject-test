@@ -32,9 +32,9 @@ version = "2020.2"
 project {
     subProject(AsavSyncerProject)
 
-    buildType(BuildArtifacts)
+//    buildType(BuildArtifacts)
 
-    buildTypesOrder = arrayListOf(BuildArtifacts)
+//    buildTypesOrder = arrayListOf(BuildArtifacts)
 }
 
 
@@ -48,52 +48,52 @@ val dockerImages = arrayListOf(libericaOpenJdkDockerImage,
     mavenPluginDockerImage, dependencyVerifierPluginDockerImage,
     artifactsManagementPluginDockerImage)
 
-object BuildArtifacts : BuildType({
-
-    name = "Build & Publish to Dev Env"
-
-    type = Type.REGULAR
-
-    val artifactSummary = "build/distributions/published_artifacts.json"
-
-    publishArtifacts = PublishMode.SUCCESSFUL
-    artifactRules = artifactSummary
-
-    params {
-        param("repoUser", "%hseAutomationUser%")
-        param("repoPass", "%hseAutomationPassword%")
-        param("dockerRegistry", "%dockerDevRepository%")
-        param("tcRestAccessToken", "%hseAutomationTCRestToken%")
-        param("publicationRepoUser", "%hseAutomationUser%")
-        param("publicationRepoPassword", "%hseAutomationPassword%")
-        param("publicationRepoUrl", "%mavenThirdPartyRepository%")
-        param("gradleArtifactsBasePath", "build/distributions")
-    }
-
-    steps {
-        exec {
-            id = "PRELOAD_DOCKER_IMAGES"
-            name = "Preload Docker Images"
-            path = "/usr/local/bin/docker-entrypoint.sh"
-            arguments = "load"
-            dockerImage = dockerImagesLoaderPluginDockerImage
-            dockerRunParameters = """
-                    --env "PLUGIN_TC_REGISTRY_URL=%dockerDevRepository%"
-                    --env "PLUGIN_TC_DOCKER_IMAGES=${dockerImages.joinToString(separator = " ")}"
-                    -v /var/run/docker.sock:/var/run/docker.sock
-                    -v %env.HOME%/.docker/config.json:/root/.docker/config.json
-                    """.trimIndent()
-        }
-    }
-
-
-    features {
-        dockerSupport {
-            id = "DockerSupport"
-            cleanupPushedImages = true
-            loginToRegistry = on {
-                dockerRegistryId = "PROJECT_EXT_8"
-            }
-        }
-    }
-})
+//object BuildArtifacts : BuildType({
+//
+//    name = "Build & Publish to Dev Env"
+//
+//    type = Type.REGULAR
+//
+//    val artifactSummary = "build/distributions/published_artifacts.json"
+//
+//    publishArtifacts = PublishMode.SUCCESSFUL
+//    artifactRules = artifactSummary
+//
+//    params {
+//        param("repoUser", "%hseAutomationUser%")
+//        param("repoPass", "%hseAutomationPassword%")
+//        param("dockerRegistry", "%dockerDevRepository%")
+//        param("tcRestAccessToken", "%hseAutomationTCRestToken%")
+//        param("publicationRepoUser", "%hseAutomationUser%")
+//        param("publicationRepoPassword", "%hseAutomationPassword%")
+//        param("publicationRepoUrl", "%mavenThirdPartyRepository%")
+//        param("gradleArtifactsBasePath", "build/distributions")
+//    }
+//
+//    steps {
+//        exec {
+//            id = "PRELOAD_DOCKER_IMAGES"
+//            name = "Preload Docker Images"
+//            path = "/usr/local/bin/docker-entrypoint.sh"
+//            arguments = "load"
+//            dockerImage = dockerImagesLoaderPluginDockerImage
+//            dockerRunParameters = """
+//                    --env "PLUGIN_TC_REGISTRY_URL=%dockerDevRepository%"
+//                    --env "PLUGIN_TC_DOCKER_IMAGES=${dockerImages.joinToString(separator = " ")}"
+//                    -v /var/run/docker.sock:/var/run/docker.sock
+//                    -v %env.HOME%/.docker/config.json:/root/.docker/config.json
+//                    """.trimIndent()
+//        }
+//    }
+//
+//
+//    features {
+//        dockerSupport {
+//            id = "DockerSupport"
+//            cleanupPushedImages = true
+//            loginToRegistry = on {
+//                dockerRegistryId = "PROJECT_EXT_8"
+//            }
+//        }
+//    }
+//})
