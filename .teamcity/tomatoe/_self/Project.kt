@@ -17,7 +17,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.exec
 
 object TomatoeProject : Project({
     name = "TomatoeProject"
-    buildType(BuildArtifacts)
+    buildType(TomatoeBuildArtifacts)
 })
 
 object TomatoeBuildArtifacts : BuildType({
